@@ -1,0 +1,105 @@
+/* public/styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Prevents body from scrolling */
+}
+
+#chat-container {
+    width: 100%;
+    max-width: 600px;
+    height: 80vh; /* Fixed height to allow internal scrolling */
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+}
+
+.chat-box {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto; /* Enables internal scrolling */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 100%; /* Ensure the chat box takes full available height */
+}
+
+.message {
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.sent {
+    align-self: flex-end;
+    background-color: #3a3a3a;
+}
+
+.received {
+    align-self: flex-start;
+    background-color: #262626;
+}
+
+.input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #121212;
+    border-top: 1px solid #333;
+    gap: 10px; /* Add space between elements */
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3a3a3a;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    #chat-container {
+        height: 100vh; /* Increase height to fill more of the screen on mobile */
+        width: 100vw; /* Full width on mobile devices */
+        border-radius: 0; /* Remove rounded corners on mobile */
+    }
+
+    .input-container {
+        flex-direction: row; /* Keep buttons in a row */
+        align-items: center;
+    }
+
+    .button {
+        flex: 0 1 10%; /* Adjust button width to share space evenly */
+        margin-right: 2%; /* Add space between buttons */
+    }
+
+    .button:last-child {
+        margin-right: 0;
+    }
+}
