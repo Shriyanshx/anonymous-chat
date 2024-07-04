@@ -1,8 +1,8 @@
 version: '3'
+
 services:
-  app:
-    build: .
+  nestjs:
+    build: ./
+    container_name: anonymous_chat_app
     ports:
-      - "3003:3003"
-    environment:
-      NODE_ENV: production
+      - '3003:3003'

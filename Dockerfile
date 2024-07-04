@@ -1,27 +1,34 @@
+#build stage
+FROM node:18-alpine AS build
 
-# Use the official Node.js image as the base image
-FROM node:21
+WORKDIR /usr/src/app
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code to the working directory
 COPY . .
 
-# Build the application
 RUN npm run build
 
-# Expose the port the app runs on
+
+#prod stage
+FROM node:18-alpine
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app/dist ./dist
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+RUN rm package*.json
+
 EXPOSE 3003
 
-# Define the command to run the application
-CMD ["npm", "run", "start:prod"]
 
-
-
+CMD [ "node", "dist/main.js" ]
