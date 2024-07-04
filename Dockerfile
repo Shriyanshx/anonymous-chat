@@ -1,30 +1,23 @@
-# Build stage
-FROM node:18-alpine AS build
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-RUN npm run build
-
-# Production stage
+# Base image
 FROM node:18-alpine
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
+# Create app directory
 WORKDIR /usr/src/app
 
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/client ./client   # Copy client folder
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-RUN npm install --only=production
-RUN rm package*.json
+# Install app dependencies
+RUN npm install
 
-EXPOSE 3000
+# Copy app source code
+COPY . .
 
-CMD [ "node", "dist/main.js" ]
+# Build the NestJS app
+RUN npm run build
+
+# Expose the port the app runs on
+EXPOSE 3003
+
+# Command to run the app
+CMD ["npm", "run", "start:prod"]
