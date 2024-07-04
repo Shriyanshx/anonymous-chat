@@ -1,7 +1,7 @@
 #build stage
 FROM node:18-alpine AS build
 
-WORKDIR /usr/src/app
+WORKDIR /
 
 COPY package*.json ./
 
